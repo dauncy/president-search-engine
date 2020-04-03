@@ -21,6 +21,8 @@ presidents_hash = { }
 end 
 
 def welcome(presidents_hash)
+    puts "welcome"
+    puts "at anytime you may type 'quit' to exit the program"
     puts "Please type your Presidential Search"
 
     text = gets.chomp
@@ -108,8 +110,19 @@ def locate(str, presidents_hash)
                 end
             end
     end 
-  Tuple.all.each{|tuple| list_of_tuples << "(#{tuple.full_name}, #{tuple.presidency}, #{tuple.start_char}, #{tuple.end_char})"}
- puts list_of_tuples
+  if Tuple.all.length != 0
+    Tuple.all.each{|tuple| list_of_tuples << "(#{tuple.full_name}, #{tuple.presidency}, #{tuple.start_char}, #{tuple.end_char})"}
+    puts list_of_tuples
+    Tuple.clear
+    sleep(1.5)
+    welcome(presidents_hash)
+  elsif original_str == "quit"
+    puts "thank you! come back soon"
+  else 
+    puts "sorry we couldn't find any matching presidents. Try searching by last name in stead"
+    sleep(1.5)
+    welcome(presidents_hash)
+  end 
   
 end 
 
