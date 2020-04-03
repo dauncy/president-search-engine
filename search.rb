@@ -19,6 +19,15 @@ presidents_hash = { }
     end
 
 end 
+
+def welcome(presidents_hash)
+    puts "Please type your Presidential Search"
+
+    text = gets.chomp
+    locate(text, presidents_hash)
+end 
+
+
     
 
 def locate(str, presidents_hash)
@@ -110,6 +119,6 @@ end
 
 
 
-locate("When was George Washington and Richard Nixon president Obama and Buch John Adams Monrox", presidents_hash )
 
 
+welcome(presidents_hash)
