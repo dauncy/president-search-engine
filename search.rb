@@ -1,10 +1,11 @@
 require_relative 'list.rb'
+require_relative 'Tuple.rb'
 list = getList
 @presidents = list.split("\n")
   
 presidents_hash = { }
 
-Tuple = Struct.new(:full_name, :presidency, :start_char, :end_char)
+
     
 @presidents.each_with_index do |president, i|
     presidents_hash[president] = { }
@@ -25,16 +26,15 @@ def locate(str, presidents_hash)
   list_of_tuples = [ ]
   @presidents.each_with_index do |president, index|
         if str.include?("#{president}") 
-            start_char = str.index("#{president}")
-            n_char =  president.length
-            end_char = start_char + n_char
+            start_char = original_str.index("#{president}")
+            end_char = start_char + president.length
             found_president = Tuple.new(
                 president, 
                 index + 1, 
                 start_char, 
                 end_char 
             )
-            list_of_tuples << found_president
+            
             str.slice!("#{president}")
         end 
     end 
@@ -45,14 +45,14 @@ def locate(str, presidents_hash)
             presidents = presidents_hash[key]
           
             presidents.each do |president|
-                found_president = Tuple.new(
+                Tuple.new(
                     president,
                     presidents_hash[president]["term"],
                     start_char,
                     start_char + key.length
                  )
                  
-                list_of_tuples << found_president
+                
                 str.slice!("#{key}")
             end 
         end 
@@ -60,7 +60,7 @@ def locate(str, presidents_hash)
       
     distance_hash = { }
     words = str.split(" ")
-        # puts words
+        
     words.each do |word| 
         presidents_hash.each do |key, v|
            i = 0
@@ -88,20 +88,21 @@ def locate(str, presidents_hash)
                     presidents = presidents_hash[k]
 
                     presidents.each do |president|
-                        found_president = Tuple.new(
+                        Tuple.new(
                             president,
                             presidents_hash[president]["term"],
                             original_str.index(word),
                             original_str.index(word) + word.length
                         )
-                        list_of_tuples << found_president
+                        
                     end 
                 end
             end
     end 
-  puts list_of_tuples
+  Tuple.all.each{|tuple| list_of_tuples << "(#{tuple.full_name}, #{tuple.presidency}, #{tuple.start_char}, #{tuple.end_char})"}
+ puts list_of_tuples
+  
 end 
-
 
 
 
